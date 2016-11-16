@@ -12,7 +12,7 @@ int setHigh(int n);
 int setLow(int n);
 void validate(int& num);
 void compare(const int numbers[], const int SIZE, int& min, int& max);
-void nameDisplay(const string names[], const int SIZE, int min, int max);
+void display(const string names[], const int SIZE, int min, int max); //this is not correct function
 
 /************Function Definitions**************/
 void welcome()
@@ -21,11 +21,11 @@ void welcome()
 	cout << "The program will also display which type of salsa sold the most and least jars." << endl;
 }
 
-void getInput(int jars[], const int SIZE)
+void getInput(int jars[], string names[], const int SIZE)
 {
 	for (int i = 0; i < SIZE; i++) //increment counter loop
 	{
-		cout << "Enter a number: ";
+		cout << "Enter the number of jars sold for " << names[i] << ":";
 		cin >> jars[i];
 		validate(jars[i]);
 	}
@@ -49,33 +49,29 @@ int setHigh(int n)
 {
 	return n;
 }
-// using pass by reference on min and max variables
-void compare(const int numbers[], const int SIZE, int& min, int& max)
+// using pass by reference on min and max variables stored in jars
+void compare(const int jars[], const int SIZE, int& setLow, int& setHigh)
 {
 	for (int i = 0; i < SIZE; i++)
 	{
-		if (numbers[i] < min)
-			min = numbers[i];
+		if (jars[i] < setLow)
+			setLow = jars[i];
 
-		if (numbers[i] > max)
-			max = numbers[i];
+		if (jars[i] > setHigh)
+			setHigh = jars[i];
 	}
 }
-// does not need to update any values it is only displaying. pass by reference removed
-void display(const int jars[], const int SIZE, int min, int max)
+
+//display the contents of both arrays
+void display(const int jars[], const int names[], const int SIZE, int min, int max)
 {
 	cout << endl << endl;
-	cout << "For the contents of the array numbers: " << endl;
-
-	//display the contents of the array
+	cout << /t /t << "Type of Salsa" << /t /t << "Number of Jars sold" << endl;
 	for (int i = 0; i < SIZE; i++)
-	{
-		cout << "numbers[" << i << "] = " << jars[i] << endl;
-	}
-	cout << endl;
-	cout << / t / t << Type of Salsa << / t / t << Number of Jars sold << endl;
-	cout << "The highest selling salsa was " << //array for names << //array for jars << endl;
-		cout << "The lowest selling salsa was " << //array for names << // array for jars << endl;
+			  {
+				  cout << / t / t << names[i] << / t / t << jars[i] << endl;
+			       
+			  }
 }
 /***************Main Driver**************/
 
@@ -84,9 +80,9 @@ int main()
 	const int SIZE = 5;
 	string names[SIZE] = { "Mild", "Medium", "Sweet", "Hot", "Zesty" };
 	int jars[SIZE];
-	int min;
-	int max;
-	//Here is what I need
+	int setLow;
+	int setHigh;
+	
 
 	welcome();	//tell the user about the program
 
@@ -94,21 +90,18 @@ int main()
 	getInput(jars, SIZE);
 
 	//set min and max to the first value in the array
-	min = setLow(jars[0]);
-	max = setHigh(jars[0]);
+	setLow = setLow(jars[0]);
+	setHigh = setHigh(jars[0]);
 
 	//compare to find min and max
-	compare(jars, SIZE, min, max);
+	compare(jars, SIZE, setLow, setHigh);
 
-		//display a report to include number of jars sold by salsa type
-		displayReport();
-
-	cout << / t / t << Type of Salsa << / t / t << Number of Jars sold << endl;
-	cout << //put the first array here << endl;
-	cout << // put the second array here << endl;
-	cout << "The highest selling salsa was " << highest << endl;
-	cout << "The lowest selling salsa was " << lowest << endl;
+	display(names, SIZE, setLow, setHigh);
+	//not sure how to tie the setHigh setLow contents to the corresponding names
+	cout << "The highest selling salsa was " << names[] << jars[setHigh] << endl;
+	cout << "The lowest selling salsa was " << names[] << jars[setLow] << endl;
 
 
+	return 0;
 
 }
